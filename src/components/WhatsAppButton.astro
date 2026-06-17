@@ -1,0 +1,21 @@
+---
+const { showroom } = Astro.props;
+const whatsappUrl = showroom?.whatsappUrl ?? "https://wa.me/919825298696";
+---
+
+<a
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat on WhatsApp"
+  class="fixed bottom-6 right-6 z-50 flex items-center justify-center rounded-full bg-emerald-500 p-4 text-white shadow-soft transition-all duration-300 hover:scale-110 hover:bg-emerald-600 active:scale-95 shadow-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/40 group"
+>
+  <!-- Tooltip text that reveals on hover -->
+  <span class="absolute right-16 scale-0 group-hover:scale-100 transition-all duration-200 origin-right bg-slate-900 text-white text-xs font-semibold px-3 py-2 rounded-xl whitespace-nowrap shadow-md pointer-events-none">
+    Chat on WhatsApp
+  </span>
+  
+  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.488 1.459 5.407 1.461 5.432.001 9.853-4.417 9.856-9.853.002-2.63-1.023-5.102-2.883-6.964C17.168 1.943 14.693.92 12.062.918c-5.438 0-9.854 4.416-9.857 9.852-.001 1.92.503 3.793 1.46 5.396L2.69 21.53l5.084-1.31L7.647 19.15zm9.52-5.748c-.287-.144-1.702-.84-1.965-.936-.264-.096-.456-.144-.648.144-.192.288-.744.936-.912 1.128-.168.192-.336.216-.624.072-.288-.144-1.215-.447-2.316-1.429-.856-.764-1.433-1.706-1.6-1.995-.168-.288-.018-.444.125-.586.129-.128.288-.336.432-.504.144-.168.192-.288.288-.48.096-.192.048-.36-.024-.504-.072-.144-.648-1.56-.888-2.136-.233-.56-.472-.482-.648-.492l-.552-.01c-.192 0-.504.072-.768.36-.264.288-1.008.984-1.008 2.4 0 1.416 1.032 2.784 1.176 2.976.144.192 2.032 3.102 4.921 4.347.687.296 1.224.473 1.642.605.69.22 1.318.19 1.816.115.554-.083 1.702-.696 1.944-1.368.24-.672.24-1.248.168-1.368-.072-.12-.264-.192-.552-.336z"/>
+  </svg>
+</a>

@@ -1,0 +1,40 @@
+---
+const { title, description, image, url } = Astro.props;
+const siteUrl = import.meta.env.SITE ?? 'https://jaybhavanifurniture.github.io';
+const baseUrl = import.meta.env.BASE_URL ?? '/';
+
+const makeAbsoluteUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  
+  const baseWithoutTrailing = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const pathWithLeading = path.startsWith('/') ? path : '/' + path;
+  
+  if (baseWithoutTrailing && pathWithLeading.startsWith(baseWithoutTrailing + '/')) {
+    return `${siteUrl}${pathWithLeading}`;
+  }
+  
+  return `${siteUrl}${baseWithoutTrailing}${pathWithLeading}`;
+};
+
+const canonicalUrl = makeAbsoluteUrl(url ?? Astro.url.pathname);
+const socialImage = makeAbsoluteUrl(image ?? '/assets/og-default.svg');
+const brandName = 'Jay Bhavani Furniture';
+const pageTitle = title && title !== brandName ? `${title} | ${brandName}` : brandName;
+const pageDescription =
+  description ||
+  'Jay Bhavani Furniture — premium custom furniture showroom in Navsari, Gujarat. Living room, bedroom, dining, and office solutions since 1998.';
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={pageDescription} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={pageDescription} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={socialImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={pageDescription} />
+<meta name="twitter:image" content={socialImage} />
+<link rel="canonical" href={canonicalUrl} />

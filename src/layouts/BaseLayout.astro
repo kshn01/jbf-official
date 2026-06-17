@@ -1,0 +1,35 @@
+---
+import SEO from '../components/SEO.astro';
+import JSONLD from '../components/JSONLD.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import '../styles/tailwind.css';
+
+const {
+  title = 'Jay Bhavani Furniture',
+  description = 'Jay Bhavani Furniture — premium custom furniture showroom in Navsari, Gujarat since 1998.',
+  image = '/assets/og-default.svg',
+  url,
+  showroom
+} = Astro.props;
+---
+
+<html lang="en" class="bg-slate-50 text-slate-900">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <SEO title={title} description={description} image={image} url={url} />
+    <JSONLD showroom={showroom} />
+  </head>
+  <body class="min-h-screen bg-slate-50">
+    <Header showroom={showroom} />
+    <main><slot /></main>
+    <Footer showroom={showroom} />
+    <WhatsAppButton showroom={showroom} />
+  </body>
+</html>

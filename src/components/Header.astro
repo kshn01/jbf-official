@@ -1,0 +1,58 @@
+---
+const { showroom } = Astro.props;
+const rawBase = import.meta.env.BASE_URL ?? '/';
+const baseUrl = rawBase.endsWith('/') ? rawBase : rawBase + '/';
+const logoSrc = showroom?.logo
+  ? (showroom.logo.startsWith('http') ? showroom.logo : `${baseUrl}${showroom.logo.startsWith('/') ? showroom.logo.slice(1) : showroom.logo}`)
+  : `${baseUrl}assets/logo.png`;
+
+const normalizePath = (p) => p.replace(/\/$/, '') || '/';
+const currentPath = normalizePath(Astro.url.pathname);
+const isHome = currentPath === normalizePath(rawBase);
+const isBlog = currentPath.startsWith(normalizePath(`${rawBase}blog`));
+const isContact = currentPath === normalizePath(`${rawBase}contact`);
+---
+<header class="border-b border-slate-200 bg-white shadow-sm">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <div class="flex items-center gap-4">
+      <a href={baseUrl} class="flex items-center gap-3">
+        <img src={logoSrc} alt={`${showroom?.shortName ?? 'JBF'} logo`} class="h-10 w-10 rounded-full border border-slate-200 bg-slate-100 object-cover" />
+        <div>
+          <p class="text-xl font-semibold tracking-tight text-slate-900">{showroom?.shortName}</p>
+          <p class="text-sm text-slate-500">{showroom?.name} · Navsari</p>
+        </div>
+      </a>
+    </div>
+
+    <nav id="desktop-nav" class="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
+      <a href={baseUrl} class={`transition hover:text-brand-700 ${isHome ? 'text-brand-700 font-semibold' : ''}`}>Home</a>
+      <a href={`${baseUrl}blog/`} class={`transition hover:text-brand-700 ${isBlog ? 'text-brand-700 font-semibold' : ''}`}>Blog</a>
+      <a href={`${baseUrl}contact/`} class={`transition hover:text-brand-700 ${isContact ? 'text-brand-700 font-semibold' : ''}`}>Contact</a>
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+    </div>
+
+    <button id="mobile-menu-toggle" aria-label="Toggle navigation" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition hover:bg-slate-100 md:hidden">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-4 md:hidden">
+    <div class="space-y-3 text-sm font-medium text-slate-700">
+      <a href={baseUrl} class={`block rounded-2xl px-4 py-3 transition hover:bg-slate-100 ${isHome ? 'bg-slate-50 text-brand-700 font-semibold' : ''}`}>Home</a>
+      <a href={`${baseUrl}blog/`} class={`block rounded-2xl px-4 py-3 transition hover:bg-slate-100 ${isBlog ? 'bg-slate-50 text-brand-700 font-semibold' : ''}`}>Blog</a>
+      <a href={`${baseUrl}contact/`} class={`block rounded-2xl px-4 py-3 transition hover:bg-slate-100 ${isContact ? 'bg-slate-50 text-brand-700 font-semibold' : ''}`}>Contact</a>
+    </div>
+  </nav>
+
+  <script type="module">
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle?.addEventListener('click', () => {
+      menu?.classList.toggle('hidden');
+    });
+  </script>
+</header>

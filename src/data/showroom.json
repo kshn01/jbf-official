@@ -1,0 +1,34 @@
+{
+  "name": "Jay Bhavani Furniture",
+  "shortName": "JBF",
+  "logo": "/assets/logo.png",
+  "hoursEstimated": true,
+  "address": "Shop no. 5, Sai complex, Sitaram nagar, Eru char rasta, Abrama Road, Navsari, Gujarat 396450",
+  "city": "Navsari",
+  "region": "Gujarat",
+  "postalCode": "396450",
+  "phone": "+91 98252 98696",
+  "phoneDisplay": "98252 98696",
+  "phoneTel": "+919825298696",
+  "whatsappUrl": "https://wa.me/919825298696",
+  "email": "jbf01nvs@gmail.com",
+  "foundedYear": 1998,
+  "hours": [
+    { "day": "Monday - Saturday", "time": "10:00 AM - 9:00 PM" },
+    { "day": "Sunday", "time": "11:00 AM - 7:00 PM" }
+  ],
+  "openingHours": [
+    {
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "10:00",
+      "closes": "21:00"
+    },
+    {
+      "days": ["Sunday"],
+      "opens": "11:00",
+      "closes": "19:00"
+    }
+  ],
+  "mapUrl": "https://maps.app.goo.gl/WS72zQBFwpfdt2UU8",
+  "description": "Jay Bhavani Furniture — a trusted furniture showroom and manufacturer in Navsari since 1998. Custom living room, bedroom, dining, and office furniture with local craftsmanship."
+}
