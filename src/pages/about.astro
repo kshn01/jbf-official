@@ -1,0 +1,111 @@
+---
+import Features3 from '~/components/widgets/Features3.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+import { getPermalink } from '~/utils/permalinks';
+import showroomData from '~/data/showroom.json';
+
+const yearsInBusiness = new Date().getFullYear() - showroomData.foundedYear;
+
+const metadata = {
+  title: 'About us',
+  description:
+    'Jay Bhavani Furniture has been a trusted furniture showroom and manufacturer in Navsari, Gujarat since 1998. Learn about our heritage, values, and commitment to quality craftsmanship.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="About us"
+    image={{
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Jay Bhavani Furniture Showroom',
+    }}
+  >
+    <Fragment slot="title">
+      Crafting Quality Furniture since <br />
+      <span class="text-accent dark:text-white">{showroomData.foundedYear}</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Jay Bhavani Furniture has been a trusted name in Navsari for over {yearsInBusiness} years. We pride ourselves on custom
+      manufacturing and delivering premium living room, bedroom, dining, and office furniture with exceptional local craftsmanship.
+    </Fragment>
+  </Hero>
+
+  <!-- Values -->
+  <Steps2
+    title="Our Values"
+    subtitle="Every piece we build reflects decades of dedication to the families we serve."
+    items={[
+      {
+        title: 'Customer First',
+        description:
+          'We listen to your needs and work with you to create furniture that truly fits your home and your life.',
+      },
+      {
+        title: 'Uncompromising Quality',
+        description:
+          'From the materials we select to the finishing touches, quality is our non-negotiable standard at every step.',
+      },
+      {
+        title: 'Community Roots',
+        description:
+          'We are proud to be a local Navsari business, employing skilled local artisans and serving our neighbours for generations.',
+      },
+    ]}
+  />
+
+  <Features3
+    title="Why Choose Jay Bhavani Furniture?"
+    subtitle="We believe in blending traditional craftsmanship with modern design to deliver the perfect furniture for your home."
+    columns={3}
+    isBeforeContent={true}
+    items={[
+      {
+        title: 'Local Manufacturing',
+        description:
+          'All our furniture is crafted locally by skilled artisans, ensuring the highest quality and supporting our community.',
+        icon: 'tabler:hammer',
+      },
+      {
+        title: 'Premium Quality',
+        description:
+          'We use the finest woods, fabrics, and materials to ensure that every piece is durable and timeless.',
+        icon: 'tabler:diamond',
+      },
+      {
+        title: 'Custom Designs',
+        description:
+          'We work closely with you to design and build bespoke furniture that fits perfectly in your space.',
+        icon: 'tabler:tool',
+      },
+    ]}
+  />
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Visit Our Showroom',
+        href: showroomData.mapUrl,
+        target: '_blank',
+        icon: 'tabler:map-pin',
+      },
+      {
+        variant: 'secondary',
+        text: 'Contact Us',
+        href: getPermalink('/contact'),
+        icon: 'tabler:phone',
+      },
+    ]}
+  >
+    <Fragment slot="title">Come see our craftsmanship in person</Fragment>
+    <Fragment slot="subtitle">
+      Visit us at {showroomData.address}
+    </Fragment>
+  </CallToAction>
+</Layout>

@@ -1,0 +1,46 @@
+---
+import '@fontsource-variable/outfit';
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: 'Outfit Variable';
+    --aw-font-serif: 'Outfit Variable';
+    --aw-font-heading: 'Outfit Variable';
+
+    --aw-color-primary: rgb(249 115 22); /* Tailwind Orange 500 */
+    --aw-color-secondary: rgb(234 88 12); /* Tailwind Orange 600 */
+    --aw-color-accent: rgb(251 146 60); /* Tailwind Orange 400 */
+
+    --aw-color-text-heading: rgb(0 0 0);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: rgb(248 250 252); /* Tailwind Slate 50 */
+
+    --aw-color-bg-page-dark: rgb(2 6 23); /* Tailwind Slate 950 */
+
+    ::selection {
+      background-color: lavender;
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Outfit Variable';
+    --aw-font-serif: 'Outfit Variable';
+    --aw-font-heading: 'Outfit Variable';
+
+    --aw-color-primary: rgb(249 115 22);
+    --aw-color-secondary: rgb(234 88 12);
+    --aw-color-accent: rgb(251 146 60);
+
+    --aw-color-text-heading: rgb(247 248 248);
+    --aw-color-text-default: rgb(229 236 246);
+    --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-bg-page: rgb(2 6 23);
+
+    ::selection {
+      background-color: black;
+      color: snow;
+    }
+  }
+</style>

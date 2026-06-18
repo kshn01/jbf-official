@@ -1,44 +1,56 @@
-# Jay Bhavani Furniture (JBF) Official Website
+# Jay Bhavani Furniture — Official Website
 
-This is the official repository for the Jay Bhavani Furniture website, a custom furniture manufacturer and showroom based in Navsari, Gujarat.
+A premium, fast, and SEO-friendly website for **Jay Bhavani Furniture**, a trusted furniture showroom and custom manufacturer in Navsari, Gujarat since 1998.
 
-## Tech Stack
-- **Framework:** [Astro](https://astro.build/) (Static Site Generation)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Typography:** Google Fonts (Outfit)
-- **Content:** Markdown-based Astro Content Collections (for the Blog)
+Built with [Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/).
 
 ## Getting Started
 
-### Prerequisites
-Make sure you have Node.js installed on your machine.
+**Requirements:** Node.js >= 22
 
-### Installation
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-### Development
-Start the local development server:
-```bash
+```shell
+npm install
 npm run dev
 ```
-The site will be available at `http://localhost:4321/`.
 
-### Build & Deployment
-This project is configured to be deployed on GitHub Pages under a subpath (`/jbf-official/`).
-To build the static site for production:
-```bash
-npm run build
-```
-The output will be generated in the `dist/` directory.
+## Commands
+
+| Command           | Action                                     |
+| :---------------- | :----------------------------------------- |
+| `npm run dev`     | Start local dev server at `localhost:4321` |
+| `npm run build`   | Build production site to `./dist/`         |
+| `npm run preview` | Preview production build locally           |
+| `npm run check`   | Check project for errors                   |
+| `npm run fix`     | Run ESLint & Prettier formatting           |
+
+## Deployment
+
+The site is automatically deployed to **GitHub Pages** at `https://jaybhavanifurniture.github.io/jbf-official/` on every push to the `main` branch via the `.github/workflows/deploy.yml` workflow.
 
 ## Project Structure
-- `src/pages/`: Contains the main application routes (`index.astro`, `contact.astro`, etc.).
-- `src/components/`: Reusable UI components (`Header`, `Footer`, `ProductCard`, etc.).
-- `src/layouts/`: Base HTML layouts.
-- `src/data/`: JSON files acting as a lightweight database for showroom details and product highlights.
-- `src/content/blog/`: Markdown files for blog posts.
-- `public/`: Static assets (images, icons) that are copied directly to the build output.
+
+```
+src/
+├── components/       # Reusable UI components & widgets
+├── content/          # Content collections (blog posts)
+├── data/
+│   ├── showroom.json # Showroom info: phone, address, hours, etc.
+│   └── post/         # Blog posts (.md / .mdx)
+├── layouts/          # Page layouts
+├── pages/            # Routes (index, about, contact, blog...)
+├── config.yaml       # Global SEO & site configuration
+└── navigation.ts     # Header & footer link structure
+public/
+└── assets/           # Static assets (logo, images)
+```
+
+## Key Files
+
+- **`src/config.yaml`** — Site name, SEO metadata, blog settings
+- **`src/data/showroom.json`** — Single source of truth for all showroom details
+- **`src/navigation.ts`** — Header navigation links & footer structure
+- **`src/components/CustomStyles.astro`** — Brand colors (orange) & font (Outfit)
+
+## License
+
+MIT

@@ -1,138 +1,166 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProductCard from '../components/ProductCard.astro';
-import BlogCard from '../components/BlogCard.astro';
-import productsData from '../data/products.json';
-import showroom from '../data/showroom.json';
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
 
-const allPosts = await getCollection('blog');
-const posts = allPosts
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))
-  .slice(0, 2);
+import { getPermalink } from '~/utils/permalinks';
+import showroomData from '~/data/showroom.json';
 
-const experienceYears = new Date().getFullYear() - showroom.foundedYear;
-const heroTitle = showroom.name;
-const heroDescription = `${showroom.name} — crafting premium custom furniture for homes and businesses in Navsari, Gujarat since ${showroom.foundedYear}. Local workmanship, custom design, and reliable delivery.`;
-const rawBase = import.meta.env.BASE_URL ?? '/';
-const baseUrl = rawBase.endsWith('/') ? rawBase : rawBase + '/';
+const metadata = {
+  title: 'Jay Bhavani Furniture — Premium Furniture Showroom in Navsari',
+  ignoreTitleTemplate: true,
+};
 ---
 
-<BaseLayout title={heroTitle} description={heroDescription} image={`${baseUrl}assets/hero-illustration.svg`} url={baseUrl} showroom={showroom}>
-  <section class="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-brand-700 px-6 py-20 text-white sm:px-10 lg:px-16">
-    <div class="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top,rgba(248,250,252,0.12),transparent)]"></div>
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-        <div class="space-y-8">
-          <p class="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.3em] text-brand-100">
-            Navsari · Since {showroom.foundedYear}
-          </p>
-          <div class="space-y-5">
-            <h1 class="max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-              Furniture that feels local, luxurious, and entirely yours.
-            </h1>
-            <p class="max-w-2xl text-base leading-8 text-slate-200">
-              Explore living room, bedroom, dining, and custom furniture collections from {showroom.shortName} — {experienceYears}+ years of trusted craftsmanship on Abrama Road, Navsari.
-            </p>
-          </div>
-          <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a
-              href="#products"
-              class="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-500/20 transition hover:bg-brand-600"
-            >
-              View Collections
-            </a>
-            <a
-              href={`${baseUrl}contact/`}
-              class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white"
-            >
-              Visit our showroom
-            </a>
-          </div>
-        </div>
-        <div class="relative">
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.35),transparent)]"></div>
-          <img
-            src={`${baseUrl}assets/hero-illustration.svg`}
-            alt="Jay Bhavani Furniture showroom illustration"
-            class="mx-auto w-full max-w-xl rounded-[2rem] border border-white/10 bg-slate-950/50 p-6 shadow-2xl shadow-slate-950/30"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
 
-  <section id="products" class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-    <div class="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.32em] text-brand-600">Featured categories</p>
-        <h2 class="mt-4 text-3xl font-semibold text-slate-900 sm:text-4xl">Custom furniture tailored for Navsari homes.</h2>
-      </div>
-      <p class="max-w-xl text-sm leading-7 text-slate-600">
-        Browse our collections for living rooms, bedrooms, dining spaces, and custom commercial solutions — all made at our Navsari workshop.
-      </p>
-    </div>
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-      {productsData.products.map((product) => <ProductCard product={product} />)}
-    </div>
-  </section>
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Visit Showroom',
+        href: showroomData.mapUrl,
+        target: '_blank',
+        icon: 'tabler:map-pin',
+      },
+      { text: 'Contact Us', href: getPermalink('/contact') },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Premium Furniture Hero Image',
+    }}
+  >
+    <Fragment slot="title">
+      Premium Furniture for <span class="hidden xl:inline">your</span>
+      <span class="text-accent dark:text-white"> Modern Home</span>
+    </Fragment>
 
-  <section class="bg-slate-950 px-6 py-20 text-white sm:px-10 lg:px-16">
-    <div class="mx-auto max-w-7xl">
-      <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div class="space-y-6">
-          <p class="text-sm uppercase tracking-[0.28em] text-brand-200">Why choose {showroom.shortName}</p>
-          <h2 class="text-4xl font-semibold">Local expertise, premium materials, and clear delivery across Gujarat.</h2>
-          <p class="max-w-2xl leading-8 text-slate-300">
-            From showroom consultations to hand-finished cabinetry, our team at {showroom.name} works with trusted timber and smart layouts to create furniture built for everyday living.
-          </p>
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div class="rounded-3xl bg-slate-900/80 p-6">
-              <p class="text-sm uppercase tracking-[0.28em] text-brand-200">Craftsmanship</p>
-              <p class="mt-3 text-base leading-7 text-slate-200">Custom carvings and precision joinery assembled for long-lasting durability.</p>
-            </div>
-            <div class="rounded-3xl bg-slate-900/80 p-6">
-              <p class="text-sm uppercase tracking-[0.28em] text-brand-200">Local trust</p>
-              <p class="mt-3 text-base leading-7 text-slate-200">
-                {experienceYears}+ years serving families and businesses across Navsari from our Abrama Road showroom.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-soft">
-          <p class="text-sm uppercase tracking-[0.3em] text-brand-200">Showroom advantage</p>
-          <h3 class="mt-4 text-2xl font-semibold text-white">See real furniture before you buy.</h3>
-          <p class="mt-4 leading-7 text-slate-300">
-            Visit our showroom at Sai complex, Abrama Road for walk-in product demonstrations, material samples, and custom planning with expert designers.
-          </p>
-          <a
-            href={showroom.mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600"
-          >
-            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Get Directions
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        <span class="font-semibold">Jay Bhavani Furniture</span> is a trusted furniture showroom and manufacturer in Navsari
+        since {showroomData.foundedYear}.</span
+      >
+      <span class="block mb-1 sm:hidden font-bold text-orange-600">Jay Bhavani Furniture</span>
+      Custom living room, bedroom, dining, and office furniture with exceptional local craftsmanship.
+    </Fragment>
+  </Hero>
 
-  <section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-    <div class="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.32em] text-brand-600">From the blog</p>
-        <h2 class="mt-4 text-3xl font-semibold text-slate-900 sm:text-4xl">Furniture insights for home design.</h2>
-      </div>
-      <a href={`${baseUrl}blog/`} class="text-sm font-semibold text-brand-700 transition hover:text-brand-900">View all posts →</a>
-    </div>
-    <div class="grid gap-6 lg:grid-cols-2">
-      {posts.map((post) => <BlogCard post={post} />)}
-    </div>
-  </section>
-</BaseLayout>
+  <!-- Features Widget *************** -->
+
+  <Features
+    id="features"
+    tagline="Our Expertise"
+    title="What we offer at JBF"
+    subtitle="Discover a wide range of premium quality furniture designed to elevate your living spaces."
+    items={[
+      {
+        title: 'Living Room Sets',
+        description:
+          'Elegant and comfortable sofas, coffee tables, and TV units tailored for modern and classic interiors.',
+        icon: 'tabler:sofa',
+      },
+      {
+        title: 'Bedroom Furniture',
+        description: 'Luxurious beds, spacious wardrobes, and stylish dressers for your perfect personal sanctuary.',
+        icon: 'tabler:bed',
+      },
+      {
+        title: 'Dining Tables',
+        description: 'Sturdy and beautiful dining sets crafted to bring families together over memorable meals.',
+        icon: 'tabler:box-margin',
+      },
+      {
+        title: 'Office Desks & Chairs',
+        description: 'Ergonomic and professional office furniture designed for comfort and high productivity.',
+        icon: 'tabler:desk',
+      },
+      {
+        title: 'Custom Craftsmanship',
+        description: 'Bespoke furniture solutions built exactly to your specifications and spatial requirements.',
+        icon: 'tabler:hammer',
+      },
+      {
+        title: 'Premium Materials',
+        description:
+          'We source only the finest woods, fabrics, and materials ensuring durability and timeless elegance.',
+        icon: 'tabler:diamond',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    tagline="Why choose us"
+    title={`Crafting memories since ${showroomData.foundedYear}`}
+    items={[
+      {
+        title: 'Decades of Trust',
+        description: `Over ${new Date().getFullYear() - showroomData.foundedYear} years of serving the Navsari community with unmatched quality and service.`,
+      },
+      {
+        title: 'Local Manufacturing',
+        description:
+          'We manufacture our products locally, ensuring tight quality control and supporting local artisans.',
+      },
+      {
+        title: 'Customer Satisfaction',
+        description: 'Our commitment is to your happiness. We offer excellent after-sales service and guarantees.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Furniture Craftsmanship',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Heritage of Excellence</h3>
+      Experience furniture that stands the test of time, both in durability and style.
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-orange-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- HighlightedPosts Widget ******* -->
+
+  <BlogLatestPosts
+    title="Latest from our Blog"
+    information={`Stay updated with the latest trends in interior design, furniture care tips, and news from the Jay Bhavani Furniture showroom.
+                `}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get Directions',
+        href: showroomData.mapUrl,
+        target: '_blank',
+        icon: 'tabler:map',
+      },
+      {
+        variant: 'secondary',
+        text: 'Contact via WhatsApp',
+        href: showroomData.whatsappUrl,
+        target: '_blank',
+        icon: 'tabler:brand-whatsapp',
+      },
+    ]}
+  >
+    <Fragment slot="title"> Visit our Showroom Today </Fragment>
+
+    <Fragment slot="subtitle">
+      Explore our latest collections at {showroomData.address}.<br class="hidden md:inline" />
+      Open {showroomData.hours[0].day}, {showroomData.hours[0].time}.
+    </Fragment>
+  </CallToAction>
+</Layout>
