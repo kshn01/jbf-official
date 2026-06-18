@@ -1,3 +1,4 @@
 User-agent: *
-Allow: /
-Sitemap: https://jaybhavanifurniture.github.io/jbf-official/sitemap.xml
+Disallow:
+
+Sitemap: https://jaybhavanifurniture.github.io/sitemap-index.xml
